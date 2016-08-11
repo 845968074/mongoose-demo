@@ -9,11 +9,13 @@ var freewind = new User({
 
 db.connect();
 
-freewind.save(function(err) {
+freewind.save(function(err,User) {
 	if(err) throw err;
 
 	console.log('User saved');
-	
+    //db.freewind.find({});
+	User.remove({"name":"Freewind"});
 	db.close();
 });
+
 
