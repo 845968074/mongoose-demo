@@ -3,32 +3,43 @@ var db = require('./db.js');
 db.connect();
 
 var User = require('./user.js');
+class operate {
+    Remove(id) {
+        User.remove({ID:id}, function (err, user) {
+            if (err) console.log("err");
+            else console.log("remove: " + user);
+        });
+    }
 
-User.find({}, function(err, users) {
-	if (err) throw err;
+    Update() {
+        User.update({ID: "1234"}, {ID: '1'},
+            function (err, user) {
+                if (err) console.log("err");
+                else console.log("update:" + user);
+            })
+    }
 
-    // object of all the users
-    console.log("All users:");
-    console.log(users);
-});
+    find(callback) {
+        User.find({}, callback);
+    }
 
-User.find({name:"Freewind"}, function(err, user) {
-	if(err) throw err;
+    FindOne(id) {
+        User.findOne({ID:id}, function (err, user) {
+            if (err) console.log("err");
+            else  console.log("findOne: " + user);
+        });
+    }
 
-	console.log("Specify User:");
-	console.log(user);
-});
-
-User.find({name: "Non-existent-user"}, function(err, user) {
-	if(err) throw err;
-
-	console.log("Find Non-existent-user:");
-	console.log(user);
-});
-
-User.findOne({name: "Non-existent-user"}, function(err, user) {
-	if(err) throw err;
-
-	console.log("Find Non-existent-user or null:");
-	console.log(user);
-});
+    Save(saveinformation) {
+        saveinformation.save(function (err, user) {
+            if (err)  {return false;}
+            else  {return  true;}
+            db.close();
+        });
+    }
+    Save(saveinf)
+    {
+        saveinf.save(callback);
+    }
+}
+module.exports = operate;
